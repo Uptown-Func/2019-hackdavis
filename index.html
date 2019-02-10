@@ -16,7 +16,7 @@
         <p id="output"></p>
 
         <script>
-            var ws = new WebSocket('ws://localhost:3000/ws');
+            var ws = new WebSocket('ws://'+window.location.hostname+'/ws');
 
             function screenWrite(data) {
                 data = JSON.parse(data);
