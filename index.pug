@@ -1,0 +1,25 @@
+doctype html
+html(lang="eng")
+  head
+    title = "TEST"
+    style(text="text/css").
+      #box {
+        background-color: #eff;
+        padding: 10px;
+        border: 1px solid green;
+      }
+    script(type='text/javascript').
+      var getText = function(data) {
+        document.getElementById("output").innerText = data;
+      }
+  body
+    #box
+      Received Messages and Replies
+    button(onclick!=`getText('${text}')`) See Messages
+    //-
+      couple tricks here!
+      1. use of template strings through `${variable_name}` syntax
+      2. use of != to avoid escaping the quotes surrounding ${text}
+      however, this trick is not universal. For example, it doesn't work in p tags.
+      In general, hope that you need not write newlines in webdev. Use the <p> tag instead. 
+    p#output
