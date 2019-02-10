@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const app = express();
 var twl, user;
 var prev = [];
+const router = express.Router();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -25,8 +26,9 @@ app.post('/sms', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  user = prev.join('\n')
-  res.send(user);
+  //user = prev.join('\n')
+  //res.send(user);
+  res.sendFile(index.html);
 });
 // http.createServer(app).listen(1337, () => {
 //   console.log('Express server listening on port 1337');
