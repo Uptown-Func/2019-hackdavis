@@ -28,3 +28,4 @@ with open('weather.csv', mode='r') as csv_file:
             data['condition'].append(conditions.index(row['condition']))
         line_count += 1
     print(f'Processed {line_count - 1} entries.')
+    
