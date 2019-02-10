@@ -43,8 +43,7 @@ app.get('/data', (req, res) => {
 // });*/
 
 app.get('/', (req, res) => {
-  let user;
-  user = ["hello", "world"]
+  let user = prev;
   user = user.join('\\n')
   /*
    * corresponding trick here (read pug file first)!
