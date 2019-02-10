@@ -24,13 +24,16 @@
             }
 
             ws.onmessage = function(event) {
-                console.log(event.data);
                 screenWrite(event.data);
             };
 
             ws.onopen = function() {
                 ws.send('hello');
             };
+
+            setInterval(function() {
+                ws.send('ping');
+            }, 1000);
         </script>
     </body>
 </html>
