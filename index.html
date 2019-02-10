@@ -1,28 +1,35 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>TEST</title>
-</head>
+<html lang="en">
+    <head>
+        <title>Weather ML</title>
+        <style>
+            #box {
+                background-color: #eff;
+                padding: 10px;
+                border: 1px solid green;
+                border-radius: 4px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="box"><p>Received Messages and Replies</p></div>
+        <p id="output"></p>
 
-<body>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-  <script>
-    $(document).ready(function() {
-      $("#trigger").click(function(){
-        $.get('http://localhost:1337/data', {}, function(data){
-          console.log(data)
-          document.getElementById("output").innerText = data
-        });
-      });
-    });
-  </script>
+        <script>
+            var ws = new WebSocket('ws://localhost:3000/ws');
 
-  <div id="box"><div style="background-color: #eff ; padding: 10px; border: 1px solid green;">
-  Received Messages and Replies
-  </div>
-  <p>
-    <button id="trigger" type="button">See Messages</button>
-  </p>
-  <p id="output"></p>
-</body>
+            function screenWrite(data) {
+                data = JSON.parse(data);
+                document.getElementById('output').innerText = data.join('\r\n');
+            }
+
+            ws.onmessage = function(event) {
+                screenWrite(event.data);
+            };
+
+            ws.onopen = function() {
+                ws.send('hello');
+            };
+        </script>
+    </body>
 </html>

@@ -1,23 +1,19 @@
-// const http = require('http');
 const express = require('express');
+const app = express();
 const port = process.env.PORT || 1337;
-const MessagingResponse = require('twilio').twiml.MessagingResponse;
+const expressWs = require('express-ws')(app);
+
 const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: false }));
 const path = require('path');
 
-const app = express();
-const expressWs = require('express-ws')(app);
-const prev = ['test', 'data'];
-const router = express.Router();
+const MessagingResponse = require('twilio').twiml.MessagingResponse;
 
-app.use(bodyParser.urlencoded({ extended: false }));
-
-app.set('view engine', 'hbs');
-const hbs = require('hbs');
+const prev = [];
+app.locals.prev = prev;
 
 app.post('/sms', (req, res) => {
     const twiml = new MessagingResponse();
-
     prev.push(req.body.Body);
     let twl = 'The Robots are coming! Head for the hills!';
     prev.push(" -> " + twl);
@@ -29,19 +25,11 @@ app.post('/sms', (req, res) => {
     res.end(twiml.toString());
 });
 
-const data = () => {
-    return prev.join('\\n');
-};
-
 app.get('/', (req, res) => {
-    res.render(path.join(__dirname, "index.hbs"), {text: data()});
+    res.sendFile(path.join(__dirname, "index.html"));
 });
 
 app.ws('/ws', (ws, req) => {
-    ws.on('open', () => {
-        console.log('ws open');
-    });
-
     ws.on('message', (msg) => {
         ws.send(JSON.stringify(prev));
     });
