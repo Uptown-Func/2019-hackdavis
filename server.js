@@ -3,6 +3,7 @@ const express = require('express');
 const port = process.env.PORT || 1337;
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 const bodyParser = require('body-parser');
+const path = require('path');
 
 const app = express();
 var twl, user;
@@ -28,7 +29,7 @@ app.post('/sms', (req, res) => {
 app.get('/', (req, res) => {
   //user = prev.join('\n')
   //res.send(user);
-  res.sendFile(index.html);
+  res.sendFile(path.join(__dirname, "/index.html"));
 });
 // http.createServer(app).listen(1337, () => {
 //   console.log('Express server listening on port 1337');
