@@ -17,7 +17,7 @@ app.post('/sms', (req, res) => {
 
   prev.push(req.body.Body);
   twl = 'The Robots are coming! Head for the hills!';
-  prev.push(twl);
+  prev.push(" -> " + twl);
 
   twiml.message(twl);
   console.log(req.body.Body);
@@ -30,7 +30,12 @@ app.get('/', (req, res) => {
   //user = prev.join('\n')
   //res.send(user);
   res.sendFile(path.join(__dirname, "/index.html"));
+  //res.send("This will be all the messages Thank you for your input.");
 });
+
+app.get('/data', (req, res) => {
+  res.send("This will be all the messages Thank you for your input.");
+})
 // http.createServer(app).listen(1337, () => {
 //   console.log('Express server listening on port 1337');
 // });

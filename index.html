@@ -1,9 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>TEST</title>
+  <title>TEST</title>
 </head>
 
 <body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <!--<script src="jquery.js"></script>-->
+  <script>
+    $(document).ready(function() {
+      $("#trigger").click(function(){
+        $.get('http://localhost:1337/data', {}, function(data){
+          console.log(data)
+          document.getElementById("output").innerText = data
+        });
+      });
+    });
+  </script>
+
+  <div id="box"><div style="background-color: #eff ; padding: 10px; border: 1px solid green;">
+  Received Messages and Replies
+  </div>
+  <p>
+    <button id="trigger" type="button">See Messages</button>
+  </p>
+  <p id="output"></p>
 </body>
 </html>
