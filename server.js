@@ -15,7 +15,7 @@ app.locals.prev = prev;
 app.post('/sms', (req, res) => {
     const twiml = new MessagingResponse();
 
-    let wml = 'The Robots are coming! Head for the hills!';
+    let wml = 'Big Dick Energy';
 
     prev.push(`${req.body.Body}`);
     prev.push(`${wml}`);
