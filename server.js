@@ -15,12 +15,12 @@ app.locals.prev = prev;
 app.post('/sms', (req, res) => {
     const twiml = new MessagingResponse();
 
-    let twl = 'The Robots are coming! Head for the hills!';
+    let wml = 'The Robots are coming! Head for the hills!';
 
-    prev.push(` <- ${req.body.Body}`);
-    prev.push(` -> ${twl}`);
+    prev.push(`${req.body.Body}`);
+    prev.push(`${wml}`);
 
-    twiml.message(twl);
+    twiml.message(wml);
     console.log(req.body.Body);
 
     res.writeHead(200, {'Content-Type': 'text/xml'});
@@ -38,4 +38,4 @@ app.ws('/ws', (ws, req) => {
     });
 });
 
-app.listen(port, () => console.log(`listening on ${port}`))
+app.listen(port, () => console.log(`listening on ${port}`));
