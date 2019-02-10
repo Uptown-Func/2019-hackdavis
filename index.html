@@ -38,9 +38,9 @@
                 data = JSON.parse(data);
                 var counter = 0;
                 var output = document.getElementById('output');
-                output.children.forEach(function(elem) {
-                    output.removeChild(elem);
-                });
+                while (output.firstChild) {
+                    output.removeChild(output.firstChild);
+                }
                 data.forEach(function(elem) {
                     var p = document.createElement("p");
                     p.innerText = elem;
