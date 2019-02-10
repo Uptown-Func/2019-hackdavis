@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Weather ML</title>
+        <style>
+            #box {
+                background-color: #eff;
+                padding: 10px;
+                border: 1px solid green;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="box"><p>Received Messages and Replies</p></div>
+        <p id="output">{{{prev}}}</p>
+
+        <script>
+            var ws = new WebSocket('ws://localhost:3000/ws');
+
+            function screenWrite(data) {
+                data = JSON.parse(data);
+                document.getElementById('output').innerText = data.join('\r\n');
+            }
+
+            ws.onmessage = function(event) {
+                screenWrite(event.data);
+            };
+        </script>
+    </body>
+</html>

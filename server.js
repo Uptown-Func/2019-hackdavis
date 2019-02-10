@@ -6,55 +6,45 @@ const bodyParser = require('body-parser');
 const path = require('path');
 
 const app = express();
-var twl, user;
-var prev = [];
+const expressWs = require('express-ws')(app);
+const prev = ['test', 'data'];
 const router = express.Router();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.set('view engine', 'pug')
+app.set('view engine', 'hbs');
+const hbs = require('hbs');
 
 app.post('/sms', (req, res) => {
-  const twiml = new MessagingResponse();
+    const twiml = new MessagingResponse();
 
-  prev.push(req.body.Body);
-  twl = 'The Robots are coming! Head for the hills!';
-  prev.push(" -> " + twl);
+    prev.push(req.body.Body);
+    let twl = 'The Robots are coming! Head for the hills!';
+    prev.push(" -> " + twl);
 
-  twiml.message(twl);
-  console.log(req.body.Body);
+    twiml.message(twl);
+    console.log(req.body.Body);
 
-  res.writeHead(200, {'Content-Type': 'text/xml'});
-  res.end(twiml.toString());
+    res.writeHead(200, {'Content-Type': 'text/xml'});
+    res.end(twiml.toString());
 });
 
-/*app.get('/', (req, res) => {
-  //
-  //res.send(user);
-  res.sendFile(path.join(__dirname, "/index.html"));
-  //res.send("This will be all the messages Thank you for your input.");
-});
-
-app.get('/data', (req, res) => {
-  res.send("This will be all the messages \n Thank you for your input.");
-})
-// http.createServer(app).listen(1337, () => {
-//   console.log('Express server listening on port 1337');
-// });*/
+const data = () => {
+    return prev.join('\\n');
+};
 
 app.get('/', (req, res) => {
-  let user = prev;
-  user = user.join('\\n')
-  /*
-   * corresponding trick here (read pug file first)!
-   * use of \\ to escape the second \ to output the raw "\n"
-   * this way we can rely on the browser to interpret the \n
-   * otherwise the browser would complain there is EOL on the raw new line :(
-   *
-   * Also, try `npm i -g nodemon` in your terminal to not need to stop/start the server every time.
-   * Look up the nodemon documentation for more/why.
-   */
-  res.render(path.join(__dirname, "/index.pug"), {text: user})
-})
+    res.render(path.join(__dirname, "index.hbs"), {text: data()});
+});
+
+app.ws('/ws', (ws, req) => {
+    ws.on('open', () => {
+        console.log('ws open');
+    });
+
+    ws.on('message', (msg) => {
+        ws.send(JSON.stringify(prev));
+    });
+});
 
 app.listen(port, () => console.log(`listening on ${port}`))
