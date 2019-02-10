@@ -14,9 +14,11 @@ app.locals.prev = prev;
 
 app.post('/sms', (req, res) => {
     const twiml = new MessagingResponse();
-    prev.push(req.body.Body);
+
     let twl = 'The Robots are coming! Head for the hills!';
-    prev.push(" -> " + twl);
+
+    prev.push(` <- ${req.body.Body}`);
+    prev.push(` -> ${twl}`);
 
     twiml.message(twl);
     console.log(req.body.Body);
@@ -26,6 +28,7 @@ app.post('/sms', (req, res) => {
 });
 
 app.get('/', (req, res) => {
+    console.log(prev);
     res.sendFile(path.join(__dirname, "index.html"));
 });
 
