@@ -1,6 +1,7 @@
+import csv
+import tensorflow.keras as keras
 import tensorflow as tf
 print(tf.__version__)
-import tensorflow.keras as keras
 # initialize data storage
 data = {}
 data['date'] = []
@@ -11,7 +12,6 @@ data['condition'] = []
 
 conditions = []
 # import data to data
-import csv
 with open('weather.csv', mode='r') as csv_file:
     csv_reader = csv.DictReader(csv_file)
     line_count = 0
