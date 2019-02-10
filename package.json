@@ -1,0 +1,28 @@
+{
+  "name": "2019-hackdavis",
+  "version": "1.0.0",
+  "description": "## Integrates with ML Productivity Analysis/2018-calhacks project",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.16.4",
+    "twilio": "^3.28.0"
+  },
+  "devDependencies": {
+    "dotenv": "^6.2.0",
+    "ngrok": "^3.1.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Uptown-Func/2019-hackdavis.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Uptown-Func/2019-hackdavis/issues"
+  },
+  "homepage": "https://github.com/Uptown-Func/2019-hackdavis#readme"
+}
