@@ -5,4 +5,4 @@ node_modules
 .ipynb_checkpoints
 *.csv
 
-/.vscode
+.vscode
